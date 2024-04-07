@@ -26,9 +26,9 @@
                 <td th:text="${user.firstName}"></td>
                 <td th:text="${user.lastName}"></td>
                 <td><a class="btn btn-success" th:href="@{user-update/{id}(id=${user.id})}"
-                       title="Изменить пользователя">E</a>&nbsp;
+                       title="Изменить пользователя">Edit</a>&nbsp;
                     <a class="btn btn-danger" th:href="@{user-delete/{id}(id=${user.id})}"
-                       title="Удалить пользователя">X</a></td>
+                       title="Удалить пользователя">Delete</a></td>
             </tr>
             </tbody>
         </table>
