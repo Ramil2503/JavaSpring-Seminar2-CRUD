@@ -42,5 +42,14 @@ public class UserController {
         return "redirect:/users";
     }
 
-    //@GetMapping("user-delete/{id}")
+    @GetMapping("/user-update/{id}")
+    public String updateUserForm(User user) {
+        return "user-update";
+    }
+
+    @PostMapping("/user-update")
+    public String updateUser(User user) {
+        userService.editUser(user.getId(), user.getFirstName(), user.getLastName());
+        return "redirect:/users";
+    }
 }

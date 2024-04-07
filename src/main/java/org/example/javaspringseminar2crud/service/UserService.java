@@ -23,5 +23,6 @@ public class UserService {
     }
 
     public void deleteById(int id) { userRepository.deleteById(id); }
-    //public void deleteById(int id)
+
+    public void editUser(int id, String firstName, String lastName) { userRepository.editUser(id, firstName, lastName); }
 }
