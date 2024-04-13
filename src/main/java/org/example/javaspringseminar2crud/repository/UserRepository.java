@@ -1,5 +1,6 @@
 package org.example.javaspringseminar2crud.repository;
 
+import org.example.javaspringseminar2crud.config.DbQueries;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -12,13 +13,15 @@ public class UserRepository {
 
 
     private final JdbcTemplate jdbc;
+    private final DbQueries dbQueries;
 
-    public UserRepository(JdbcTemplate jdbc) {
+    public UserRepository(JdbcTemplate jdbc, DbQueries dbQueries) {
         this.jdbc = jdbc;
+        this.dbQueries = dbQueries;
     }
 
     public List<User> findAll() {
-        String sql = "SELECT * FROM userTable";
+        String sql = dbQueries.getFindAll();
 
         RowMapper<User> userRowMapper = (r, i) -> {
             User rowObject = new User();
@@ -32,18 +35,15 @@ public class UserRepository {
     }
 
     public User save(User user) {
-        String sql = "INSERT INTO userTable (firstName,lastName) VALUES ( ?, ?)";
-        jdbc.update(sql, user.getFirstName(), user.getLastName());
+        jdbc.update(dbQueries.getAddUser(), user.getFirstName(), user.getLastName());
         return  user;
     }
 
     public void deleteById(int id) {
-        String sql = "DELETE FROM userTable WHERE id = ?";
-        jdbc.update(sql, id);
+        jdbc.update(dbQueries.getDeleteUser(), id);
     }
 
     public void editUser(int id, String firstName, String lastName) {
-        String sql = "UPDATE userTable SET firstName = ?, lastName = ? WHERE id = ?";
-        jdbc.update(sql, firstName, lastName, id);
+        jdbc.update(dbQueries.getUpdateUser(), firstName, lastName, id);
     }
 }
